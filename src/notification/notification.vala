@@ -10,6 +10,9 @@ namespace SwayNotificationCenter {
         unowned Hdy.Carousel carousel;
 
         [GtkChild]
+        unowned Gtk.EventBox close_event_box;
+
+        [GtkChild]
         unowned Gtk.EventBox event_box;
 
         [GtkChild]
@@ -238,12 +241,12 @@ namespace SwayNotificationCenter {
 
             close_button.clicked.connect (() => close_notification ());
 
-            this.event_box.enter_notify_event.connect ((event) => {
+            this.close_event_box.enter_notify_event.connect ((event) => {
                 close_revealer.set_reveal_child (true);
                 remove_noti_timeout ();
                 return false;
             });
-            this.event_box.leave_notify_event.connect ((event) => {
+            this.close_event_box.leave_notify_event.connect ((event) => {
                 if (event.detail == Gdk.NotifyType.INFERIOR) return true;
                 close_revealer.set_reveal_child (false);
                 add_notification_timeout ();
@@ -312,7 +315,7 @@ namespace SwayNotificationCenter {
             this.summary.set_text (param.summary ?? param.app_name);
             this.summary.set_ellipsize (Pango.EllipsizeMode.END);
 
-            close_revealer.set_transition_duration (this.transition_time);
+            close_revealer.set_transition_duration (0);
 
             this.revealer.set_transition_duration (this.transition_time);
 
@@ -555,7 +558,7 @@ namespace SwayNotificationCenter {
             if (param.actions.length > 0 || code != null) {
                 var viewport = new Gtk.Viewport (null, null);
                 var scroll = new Gtk.ScrolledWindow (null, null);
-                alt_actions_box = new Gtk.ButtonBox (Gtk.Orientation.HORIZONTAL);
+                alt_actions_box = new Gtk.ButtonBox (Gtk.Orientation.VERTICAL);
                 alt_actions_box.set_homogeneous (true);
                 alt_actions_box.set_layout (Gtk.ButtonBoxStyle.EXPAND);
 
@@ -585,9 +588,8 @@ namespace SwayNotificationCenter {
                     alt_actions_box.add (action_button);
                 }
                 viewport.add (alt_actions_box);
-                scroll.add (viewport);
-                base_box.add (scroll);
-                scroll.show_all ();
+                base_box.add (viewport);
+                viewport.show_all ();
             }
         }
 

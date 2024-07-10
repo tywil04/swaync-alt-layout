@@ -7,43 +7,44 @@
     <property name="visible">True</property>
     <property name="can-focus">True</property>
     <child>
-      <object class="GtkRevealer" id="revealer">
+      <object class="HdyCarousel" id="carousel">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
-        <property name="transition-type">crossfade</property>
         <child>
-          <object class="HdyCarousel" id="carousel">
+          <object class="GtkBox">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
+            <property name="hexpand">True</property>
             <child>
-              <object class="GtkBox">
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <property name="hexpand">True</property>
-                <child>
-                  <placeholder/>
-                </child>
-              </object>
+              <placeholder/>
             </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkEventBox" id="event_box">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="hexpand">True</property>
             <child>
-              <object class="GtkEventBox" id="event_box">
+
+              <object class="GtkEventBox" id="close_event_box">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="hexpand">True</property>
                 <child>
-                  <object class="GtkBox">
+                  <object class="GtkOverlay" id="overlay">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="orientation">vertical</property>
                     <child>
-                      <object class="GtkOverlay" id="overlay">
+                      <object class="GtkRevealer" id="revealer">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
+                        <property name="transition-type">crossfade</property>
                         <child>
                           <object class="GtkBox" id="base_box">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
-                            <property name="orientation">vertical</property>
+                            <property name="orientation">horizontal</property>
                             <child>
                               <object class="GtkEventBox" id="default_action">
                                 <property name="visible">True</property>
@@ -56,9 +57,11 @@
                                     <property name="orientation">vertical</property>
                                     <property name="spacing">8</property>
                                     <child>
+
                                       <object class="GtkBox">
                                         <property name="visible">True</property>
                                         <property name="can-focus">False</property>
+                                        <property name="orientation">horizontal</property>
                                         <child>
                                           <object class="GtkOverlay">
                                             <property name="visible">True</property>
@@ -157,7 +160,7 @@
                                               <object class="GtkLabel" id="body">
                                                 <property name="visible">True</property>
                                                 <property name="can-focus">False</property>
-                                                <property name="hexpand">True</property>
+                                                <property name="hexpand">False</property>
                                                 <property name="wrap">True</property>
                                                 <property name="wrap-mode">word-char</property>
                                                 <property name="ellipsize">end</property>
@@ -185,6 +188,7 @@
                                           </packing>
                                         </child>
                                       </object>
+
                                       <packing>
                                         <property name="expand">False</property>
                                         <property name="fill">True</property>
@@ -278,57 +282,50 @@
                               <class name="notification"/>
                             </style>
                           </object>
-                          <packing>
-                            <property name="index">-1</property>
-                          </packing>
-                        </child>
-                        <child type="overlay">
-                          <object class="GtkRevealer" id="close_revealer">
-                            <property name="visible">True</property>
-                            <property name="can-focus">False</property>
-                            <property name="halign">end</property>
-                            <property name="valign">start</property>
-                            <property name="transition-type">crossfade</property>
-                            <child>
-                              <object class="GtkButton" id="close_button">
-                                <property name="visible">True</property>
-                                <property name="can-focus">True</property>
-                                <property name="receives-default">False</property>
-                                <property name="halign">center</property>
-                                <property name="valign">center</property>
-                                <property name="margin-start">4</property>
-                                <property name="margin-end">4</property>
-                                <property name="margin-top">2</property>
-                                <property name="margin-bottom">2</property>
-                                <property name="relief">none</property>
-                                <child>
-                                  <object class="GtkImage">
-                                    <property name="visible">True</property>
-                                    <property name="can-focus">False</property>
-                                    <property name="icon-name">swaync-close-symbolic</property>
-                                  </object>
-                                </child>
-                                <style>
-                                  <class name="close-button"/>
-                                  <class name="circular"/>
-                                </style>
-                              </object>
-                            </child>
-                          </object>
                         </child>
                       </object>
                       <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">0</property>
+                        <property name="index">-1</property>
                       </packing>
                     </child>
-                    <style>
-                      <class name="notification-background"/>
-                    </style>
+                    <child type="overlay">
+                      <object class="GtkRevealer" id="close_revealer">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="halign">end</property>
+                        <property name="valign">start</property>
+                        <property name="transition-type">crossfade</property>
+                        <child>
+                          <object class="GtkButton" id="close_button">
+                            <property name="visible">True</property>
+                            <property name="can-focus">True</property>
+                            <property name="receives-default">False</property>
+                            <property name="halign">center</property>
+                            <property name="valign">center</property>
+                            <property name="margin-start">4</property>
+                            <property name="margin-end">4</property>
+                            <property name="margin-top">2</property>
+                            <property name="margin-bottom">2</property>
+                            <property name="relief">none</property>
+                            <child>
+                              <object class="GtkImage">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="icon-name">swaync-close-symbolic</property>
+                              </object>
+                            </child>
+                            <style>
+                              <class name="close-button"/>
+                              <class name="circular"/>
+                            </style>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
                   </object>
                 </child>
               </object>
+
             </child>
           </object>
         </child>
